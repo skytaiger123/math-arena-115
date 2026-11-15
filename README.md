@@ -1,0 +1,64 @@
+# 六年級數學王者競技場
+
+115 學年度國小六年級數學互動競賽第一版。純 HTML、CSS、JavaScript，沒有帳號、資料庫、付費 API 或後端。
+
+## 第一版功能
+
+- 單人「數學寶箱王」、雙人「閃電擂台」、三人「三勇士打魔王」
+- 8 個上學期單元、簡單／普通／困難，共 48 題原創測試題
+- 題目隨機抽取，同一輪題庫用完前不重複
+- 教師公布答案、判分、跳題、開始／暫停、下一組
+- 30／45／60／90 秒計時，全螢幕、鍵盤操作、音效與減少動畫
+- `localStorage` 保存設定與戰績；匯出 UTF-8 CSV、清除戰績
+
+## 本機開啟（新手方法）
+
+直接雙擊 `dist/index.html` 即可。若瀏覽器限制本機功能，可在本資料夾開啟 PowerShell，執行：
+
+```powershell
+npx serve dist
+```
+
+再開啟終端機顯示的網址。第一次使用 `npx serve` 可能需要網路下載工具。
+
+## 教師操作
+
+1. 選遊戲、單元、難度、秒數，輸入學生或隊伍名稱。
+2. 按「開始新回合」，學生在黑板列式。
+3. 按開始計時；完成後公布答案。
+4. 先按選手卡或 1／2／3 選人，再按答對或答錯。
+5. 按「下一組」保存本回合並輪替參賽者。
+
+快捷鍵：`Space` 計時、`A` 答案、`1/2/3` 選人、`+/-` 判分、`S` 跳題、`N` 下一組、`F` 全螢幕。
+
+## 更新題庫
+
+編輯 `dist/data/questions.js`。每題需包含 `id`、`unit`（1–8）、`difficulty`（easy/normal/hard）、`prompt`、`answer`、`explanation`。改完執行：
+
+```powershell
+npm test
+```
+
+## GitHub 與 GitHub Pages
+
+1. 在 GitHub 建立空白 repository，例如 `math-arena-115`。
+2. 把本資料夾內所有檔案上傳，或用 Git 提交並推送。
+3. Repository → **Settings** → **Pages**。
+4. Source 選 **Deploy from a branch**，Branch 選 `main`，資料夾選 `/docs` 需要先把 `dist` 改名為 `docs`；或使用 GitHub Actions 發布 `dist`。
+5. 最簡單做法：把 `dist` 內的檔案放在 repository 根目錄，再選 `main / (root)`。
+
+## 人工確認清單
+
+- 教師逐題核對翰林版 115 學年度實際授課範圍與用語。
+- 以教室投影機實測 1920×1080 的最遠座位可讀性。
+- 以實際班級名單跑完一次換組順序與同分加賽流程。
+- Chrome、Edge、Safari 各試玩至少 10 回合；確認音效符合校內設備音量。
+- 第一版是 48 題功能測試題；正式使用前建議擴充至每單元 30 題並由教師審題。
+
+## 檔案說明
+
+- `dist/index.html`：網站首頁與介面
+- `dist/styles.css`：大螢幕與響應式外觀
+- `dist/app.js`：遊戲、計時、計分、換組、儲存與 CSV
+- `dist/data/questions.js`：獨立題庫
+- `tests/validate.mjs`：題庫與必要檔案自動檢查

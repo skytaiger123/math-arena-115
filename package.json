@@ -1,0 +1,1 @@
+{"name":"math-arena-115","private":true,"type":"module","scripts":{"test":"node tests/validate.mjs","serve":"npx serve dist"}}

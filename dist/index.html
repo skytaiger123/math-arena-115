@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="適合智慧教室大螢幕的六年級數學互動競賽遊戲">
+  <title>六年級數學王者競技場</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">M</span><div><strong>數學王者競技場</strong><small>115學年度・六年級・翰林版</small></div></div>
+    <div class="top-actions">
+      <button id="soundBtn" class="icon-btn" aria-pressed="true" title="音效開關">🔊 音效</button>
+      <button id="motionBtn" class="icon-btn" aria-pressed="false" title="減少動畫">✨ 動畫</button>
+      <button id="fullscreenBtn" class="icon-btn">⛶ 全螢幕</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="setupView" class="setup-view">
+      <div class="hero-copy">
+        <p class="eyebrow">CLASSROOM EDITION</p>
+        <h1>今天，誰能登上<br><span>數學王座？</span></h1>
+        <p>一台電腦、一面黑板，就能開始全班競賽。選擇玩法後，老師一鍵掌控題目、計時與換組。</p>
+        <div class="hero-badges"><span>✓ 無需登入</span><span>✓ 本機保存</span><span>✓ 大螢幕優化</span></div>
+      </div>
+      <div class="mode-grid" role="radiogroup" aria-label="遊戲模式">
+        <button class="mode-card selected" data-mode="treasure" role="radio" aria-checked="true">
+          <span class="mode-icon treasure">◆</span><span class="mode-kicker">SOLO QUEST</span><strong>數學寶箱王</strong><small>單人挑戰・答對開寶箱</small><span class="mode-cta">選擇此模式 →</span>
+        </button>
+        <button class="mode-card" data-mode="duel" role="radio" aria-checked="false">
+          <span class="mode-icon duel">⚡</span><span class="mode-kicker">DUEL MODE</span><strong>閃電擂台</strong><small>雙人競速・正確優先</small><span class="mode-cta">選擇此模式 →</span>
+        </button>
+        <button class="mode-card" data-mode="boss" role="radio" aria-checked="false">
+          <span class="mode-icon boss">♜</span><span class="mode-kicker">TEAM RAID</span><strong>三勇士打魔王</strong><small>三人合作・合力削血</small><span class="mode-cta">選擇此模式 →</span>
+        </button>
+      </div>
+
+      <section class="control-panel" aria-labelledby="setupTitle">
+        <div class="panel-title"><div><span>教師控制台</span><h2 id="setupTitle">建立新回合</h2></div><span class="teacher-only">🔒 教師專用</span></div>
+        <div class="settings-grid">
+          <label>數學單元<select id="unitSelect"><option value="all">八單元混合</option><option value="1">1. 最大公因數與最小公倍數</option><option value="2">2. 分數除法</option><option value="3">3. 小數除法</option><option value="4">4. 比與比值</option><option value="5">5. 兩量關係</option><option value="6">6. 圓周長與扇形周長</option><option value="7">7. 放大、縮小與比例尺</option><option value="8">8. 怎樣解題</option></select></label>
+          <fieldset><legend>題目難度</legend><div class="segmented"><button data-difficulty="easy">簡單</button><button class="active" data-difficulty="normal">普通</button><button data-difficulty="hard">困難</button></div></fieldset>
+          <label>每題作答時間<select id="timeSelect"><option>30</option><option>45</option><option selected>60</option><option>90</option></select></label>
+        </div>
+        <div class="player-settings">
+          <label>參賽者／隊伍名稱（以逗號分隔）<input id="namesInput" value="第一組, 第二組, 第三組, 第四組, 第五組, 第六組" autocomplete="off"></label>
+          <button id="startBtn" class="primary">開始新回合 <span>▶</span></button>
+        </div>
+      </section>
+      <section class="records-strip"><div><span>本機戰績</span><strong id="recordCount">0</strong><small>已完成回合</small></div><button id="exportBtn">⇩ 匯出 CSV</button><button id="clearBtn" class="danger-text">清除資料</button><button id="helpBtn">⌨ 快捷鍵</button></section>
+    </section>
+
+    <section id="gameView" class="game-view" hidden>
+      <div class="game-meta"><button id="homeBtn">← 返回設定</button><span id="roundLabel">第 1 回合</span><span id="unitLabel">混合題庫</span><span id="difficultyLabel">普通</span></div>
+      <div class="arena">
+        <section class="scoreboard" id="scoreboard"></section>
+        <section class="question-stage">
+          <div class="stage-head"><span id="modeLabel">數學寶箱王</span><div id="timer" class="timer"><span>⏱</span><strong>60</strong><small>秒</small></div></div>
+          <div id="modeVisual" class="mode-visual" aria-hidden="true"></div>
+          <div class="question-card">
+            <span class="question-number" id="questionNumber">QUESTION 01</span>
+            <h2 id="questionText">題目載入中…</h2>
+            <p>請在黑板上寫出完整計算過程</p>
+          </div>
+          <div id="answerPanel" class="answer-panel" hidden><span>正確答案</span><strong id="answerText"></strong><p id="explanationText"></p></div>
+        </section>
+      </div>
+      <aside class="teacher-dock" aria-label="教師操作">
+        <button id="timerBtn" class="dock-main">▶ 開始計時 <kbd>Space</kbd></button>
+        <button id="revealBtn">👁 公布答案 <kbd>A</kbd></button>
+        <div id="scoreControls" class="score-controls"></div>
+        <button id="skipBtn">↷ 跳題 <kbd>S</kbd></button>
+        <button id="nextBtn" class="next">下一組 → <kbd>N</kbd></button>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="helpDialog"><button class="dialog-close" aria-label="關閉">×</button><h2>教師快捷鍵</h2><div class="shortcut-grid"><kbd>Space</kbd><span>開始／暫停計時</span><kbd>A</kbd><span>公布／隱藏答案</span><kbd>1 / 2 / 3</kbd><span>切換對應選手判分</span><kbd>＋ / －</kbd><span>選中選手加／扣分</span><kbd>S</kbd><span>跳過目前題目</span><kbd>N</kbd><span>完成回合並換下一組</span><kbd>F</kbd><span>切換全螢幕</span></div><p>快捷鍵在輸入名稱時不會觸發。</p></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
