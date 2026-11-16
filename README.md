@@ -10,6 +10,8 @@
 
 音效檔位於 `dist/assets/audio/`，增加鼓掌聲的方法請見該資料夾的 `README.md`。
 
+閃電擂台在教師啟用自動音效後，每次判定答對都固定播放 `applause-01.mp3`（原始檔 `freesound_community-applause-75314.mp3`）。
+
 ## 第一版功能
 
 - 單人「數學寶箱王」、雙人「閃電擂台」、三人「三勇士打魔王」

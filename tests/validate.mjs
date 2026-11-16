@@ -8,4 +8,5 @@ for(let u=1;u<=8;u++)for(const d of ['normal','hard'])assert(q.filter(x=>x.unit=
 for(const f of ['index.html','styles.css','app.js','sound-manager.js','data/questions.js'])assert(fs.existsSync(new URL('../dist/'+f,import.meta.url)),`缺少 ${f}`);
 for(let i=1;i<=3;i++){const f=`assets/audio/applause/applause-0${i}.mp3`,url=new URL('../dist/'+f,import.meta.url);assert(fs.existsSync(url),`缺少 ${f}`);assert(fs.statSync(url).size>1000,`${f} 檔案異常`)}
 const app=fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');assert(app.includes('remaining===10'),'缺少倒數 10 秒音效規則');assert(app.includes('correctStreak%3===0'),'缺少連續答對 3 題規則');assert(app.includes('autoSound'),'缺少教師自動音效設定');
+assert(app.includes("state.mode==='duel')SoundFX.playDuelCorrect()"),'閃電擂台答對未綁定指定鼓掌聲');
 console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 3 個 MP3 皆通過檢查`);
