@@ -20,11 +20,12 @@
   function playCheer(){stopAll();playFile(true);synth([523,659,784,1047],.34,false)}
   function playCorrect(){stopAll();synth([660,880,1100],.14,false);later(()=>playFile(false),220);speak(praises[Math.floor(Math.random()*praises.length)],{pitch:1.18,rate:1.08})}
   function playDuelCorrect(){stopAll();playFile(false,0)}
+  function playTreasureCorrect(){stopAll();playFile(false,1)}
   function playWrong(){stopAll();synth([392,330],.2,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.02,rate:.98})}
   function playEncouragement(){stopAll();synth([392,494,587],.17,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.08})}
   function playVictory(){stopAll();playFile(true);synth([523,659,784,1047,1319],.36,false);speak('挑戰成功！恭喜大家！',{pitch:1.2,rate:1.02})}
   function playCountdown(){stopAll();synth([880,880,1047],.12,false);speak('剩下十秒',{rate:1.08})}
   function playEntrance(){stopAll();synth([392,523,659],.16,false)}
   function playRandom(){[playApplause,playCheer,playEncouragement,playVictory][Math.floor(Math.random()*4)]()}
-  window.SoundFX={unlock,stopAll,setEnabled,setVolume,playApplause,playCheer,playCorrect,playDuelCorrect,playWrong,playEncouragement,playVictory,playCountdown,playEntrance,playRandom,get enabled(){return enabled},get volume(){return volume},get unlocked(){return unlocked},files:applauseFiles.slice()};
+  window.SoundFX={unlock,stopAll,setEnabled,setVolume,playApplause,playCheer,playCorrect,playDuelCorrect,playTreasureCorrect,playWrong,playEncouragement,playVictory,playCountdown,playEntrance,playRandom,get enabled(){return enabled},get volume(){return volume},get unlocked(){return unlocked},files:applauseFiles.slice()};
 })();

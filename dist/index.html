@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="適合智慧教室大螢幕的六年級數學互動競賽遊戲">
   <title>六年級數學王者競技場</title>
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header class="topbar">
@@ -83,8 +83,8 @@
   <dialog id="resultDialog" class="result-dialog"><p class="eyebrow">FINAL RESULTS</p><h2>本場競賽總結算</h2><p id="resultSummary"></p><div id="finalRanking" class="final-ranking"></div><div class="result-actions"><button id="exportResultBtn">⇩ 匯出 CSV</button><button id="backSetupBtn" class="primary">返回設定</button></div></dialog>
   <dialog id="soundPanel" class="sound-panel"><button id="soundPanelClose" class="dialog-close" aria-label="關閉">×</button><p class="eyebrow">TEACHER SOUND BOARD</p><h2>教師音效控制台</h2><p id="soundStatus" class="sound-status">尚未啟動音效，請先按任一音效按鈕。</p><div class="sound-buttons"><button data-sound="applause">👏 鼓掌</button><button data-sound="cheer">🎉 熱烈歡呼</button><button data-sound="encourage">💪 鼓勵學生</button><button data-sound="victory">🏆 勝利音效</button><button data-sound="random">🎲 隨機音效</button><button data-sound="stop" class="stop-sound">■ 立即停止</button></div><label class="volume-control">教室音量（最高限制 70%）<input id="soundVolume" type="range" min="0" max="0.7" step="0.05" value="0.45"><output id="soundVolumeValue">45%</output></label><label class="auto-sound"><input id="autoSound" type="checkbox"> 啟用遊戲自動音效</label><p class="sound-note">自動音效預設關閉。教師首次點擊音效按鈕後，瀏覽器才會允許播放。</p></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="data/questions.js?v=10"></script>
-  <script src="sound-manager.js?v=10"></script>
-  <script src="app.js?v=10"></script>
+  <script src="data/questions.js?v=11"></script>
+  <script src="sound-manager.js?v=11"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
