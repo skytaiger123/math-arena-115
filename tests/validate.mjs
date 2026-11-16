@@ -13,5 +13,7 @@ assert(app.includes("state.sound&&window.SoundFX&&state.mode==='duel')SoundFX.pl
 assert(app.includes("state.sound&&window.SoundFX&&state.mode==='treasure')SoundFX.playTreasureCorrect()"),'數學寶箱王答對未直接綁定指定鼓掌聲');
 assert(app.includes('SoundFX.playTimerStart()'),'開始計時未綁定提示音');assert(app.includes('state.remaining===10&&state.sound&&window.SoundFX)SoundFX.playCountdown()'),'最後 10 秒未綁定逐秒倒數音檔');
 assert(app.includes('state.timerDeadline=Date.now()+state.remaining*1000'),'計時器未使用絕對時間校正');
+assert(app.includes('if(state.sound&&window.SoundFX)SoundFX.playWrong()'),'答錯未直接播放溫和鼓勵聲');
 const sounds=fs.readFileSync(new URL('../dist/sound-manager.js',import.meta.url),'utf8');assert(sounds.includes('a.duration/10'),'倒數音檔未依精確時長校準為 10 秒');assert(sounds.includes('offset*rate'),'暫停續播位置未按播放倍率校正');
+assert(sounds.includes("speak('再接再厲，你一定可以！'"),'答錯鼓勵語音內容遺失');
 console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 4 個 MP3 皆通過檢查`);

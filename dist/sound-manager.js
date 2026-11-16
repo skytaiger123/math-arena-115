@@ -22,7 +22,7 @@
   function playCorrect(){stopAll();synth([660,880,1100],.14,false);later(()=>playFile(false),220);speak(praises[Math.floor(Math.random()*praises.length)],{pitch:1.18,rate:1.08})}
   function playDuelCorrect(){stopAll();playFile(false,0)}
   function playTreasureCorrect(){stopAll();playFile(false,1)}
-  function playWrong(){stopAll();synth([392,330],.2,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.02,rate:.98})}
+  function playWrong(){stopAll();synth([392,330],.2,false);speak('再接再厲，你一定可以！',{pitch:1.02,rate:.92})}
   function playEncouragement(){stopAll();synth([392,494,587],.17,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.08})}
   function playVictory(){stopAll();playFile(true);synth([523,659,784,1047,1319],.36,false);speak('挑戰成功！恭喜大家！',{pitch:1.2,rate:1.02})}
   function playTimerStart(){stopAll();synth([523,659,784],.16,false)}
