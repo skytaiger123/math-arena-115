@@ -5,5 +5,7 @@ assert(Array.isArray(q),'題庫必須是陣列');assert(q.length>=128,`題數不
 for(const item of q){for(const key of ['id','unit','difficulty','prompt','answer','explanation'])assert(item[key],`${item.id||'未知題'} 缺少 ${key}`);assert(/^[1-8]$/.test(item.unit),`${item.id} 單元錯誤`);assert(['easy','normal','hard'].includes(item.difficulty),`${item.id} 難度錯誤`)}
 for(let u=1;u<=8;u++)for(const d of ['easy','normal','hard'])assert(q.some(x=>x.unit===String(u)&&x.difficulty===d),`第 ${u} 單元缺少 ${d}`);
 for(let u=1;u<=8;u++)for(const d of ['normal','hard'])assert(q.filter(x=>x.unit===String(u)&&x.difficulty===d).length>=7,`第 ${u} 單元 ${d} 未達 7 題`);
-for(const f of ['index.html','styles.css','app.js','data/questions.js'])assert(fs.existsSync(new URL('../dist/'+f,import.meta.url)),`缺少 ${f}`);
-console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度與網站必要檔案皆通過檢查`);
+for(const f of ['index.html','styles.css','app.js','sound-manager.js','data/questions.js'])assert(fs.existsSync(new URL('../dist/'+f,import.meta.url)),`缺少 ${f}`);
+for(let i=1;i<=3;i++){const f=`assets/audio/applause/applause-0${i}.mp3`,url=new URL('../dist/'+f,import.meta.url);assert(fs.existsSync(url),`缺少 ${f}`);assert(fs.statSync(url).size>1000,`${f} 檔案異常`)}
+const app=fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');assert(app.includes('remaining===10'),'缺少倒數 10 秒音效規則');assert(app.includes('correctStreak%3===0'),'缺少連續答對 3 題規則');assert(app.includes('autoSound'),'缺少教師自動音效設定');
+console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 3 個 MP3 皆通過檢查`);
