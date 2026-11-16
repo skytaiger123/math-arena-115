@@ -7,7 +7,9 @@ for(let u=1;u<=8;u++)for(const d of ['easy','normal','hard'])assert(q.some(x=>x.
 for(let u=1;u<=8;u++)for(const d of ['normal','hard'])assert(q.filter(x=>x.unit===String(u)&&x.difficulty===d).length>=7,`第 ${u} 單元 ${d} 未達 7 題`);
 for(const f of ['index.html','styles.css','app.js','sound-manager.js','data/questions.js'])assert(fs.existsSync(new URL('../dist/'+f,import.meta.url)),`缺少 ${f}`);
 for(let i=1;i<=3;i++){const f=`assets/audio/applause/applause-0${i}.mp3`,url=new URL('../dist/'+f,import.meta.url);assert(fs.existsSync(url),`缺少 ${f}`);assert(fs.statSync(url).size>1000,`${f} 檔案異常`)}
+{const f='assets/audio/countdown/countdown-10-to-1.mp3',url=new URL('../dist/'+f,import.meta.url);assert(fs.existsSync(url),`缺少 ${f}`);assert(fs.statSync(url).size>1000,`${f} 檔案異常`)}
 const app=fs.readFileSync(new URL('../dist/app.js',import.meta.url),'utf8');assert(app.includes('remaining===10'),'缺少倒數 10 秒音效規則');assert(app.includes('correctStreak%3===0'),'缺少連續答對 3 題規則');assert(app.includes('autoSound'),'缺少教師自動音效設定');
 assert(app.includes("state.sound&&window.SoundFX&&state.mode==='duel')SoundFX.playDuelCorrect()"),'閃電擂台答對未直接綁定指定鼓掌聲');
 assert(app.includes("state.sound&&window.SoundFX&&state.mode==='treasure')SoundFX.playTreasureCorrect()"),'數學寶箱王答對未直接綁定指定鼓掌聲');
-console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 3 個 MP3 皆通過檢查`);
+assert(app.includes('SoundFX.playTimerStart()'),'開始計時未綁定提示音');assert(app.includes('state.remaining===10&&state.sound&&window.SoundFX)SoundFX.playCountdown()'),'最後 10 秒未綁定逐秒倒數音檔');
+console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 4 個 MP3 皆通過檢查`);

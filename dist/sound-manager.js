@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const applauseFiles=['assets/audio/applause/applause-01.mp3','assets/audio/applause/applause-02.mp3','assets/audio/applause/applause-03.mp3'];
+  const countdownFile='assets/audio/countdown/countdown-10-to-1.mp3';
   const praises=['答對了，太棒了！','好厲害，完全正確！','完美作答！','答得真好，繼續加油！'];
   const encouragements=['加油！','你可以的！','再試一次！','沒關係，繼續努力！','已經很接近了！'];
   let enabled=true,volume=.45,ctx=null,currentAudio=null,activeNodes=new Set(),timers=new Set(),unlocked=false;
@@ -24,8 +25,9 @@
   function playWrong(){stopAll();synth([392,330],.2,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.02,rate:.98})}
   function playEncouragement(){stopAll();synth([392,494,587],.17,false);speak(encouragements[Math.floor(Math.random()*encouragements.length)],{pitch:1.08})}
   function playVictory(){stopAll();playFile(true);synth([523,659,784,1047,1319],.36,false);speak('挑戰成功！恭喜大家！',{pitch:1.2,rate:1.02})}
-  function playCountdown(){stopAll();synth([880,880,1047],.12,false);speak('剩下十秒',{rate:1.08})}
+  function playTimerStart(){stopAll();synth([523,659,784],.16,false)}
+  async function playCountdown(offset=0){if(!enabled)return false;stopAll();unlock();const a=new Audio(countdownFile);currentAudio=a;a.volume=Math.min(.7,volume);a.onloadedmetadata=()=>{if(offset>0&&offset<a.duration)a.currentTime=offset};a.onended=()=>{if(currentAudio===a)currentAudio=null};a.onerror=()=>notify(`倒數音效檔案無法載入：${countdownFile}`);try{await a.play();return true}catch{notify('瀏覽器尚未允許播放倒數音效，請教師先按一次開始計時。');return false}}
   function playEntrance(){stopAll();synth([392,523,659],.16,false)}
   function playRandom(){[playApplause,playCheer,playEncouragement,playVictory][Math.floor(Math.random()*4)]()}
-  window.SoundFX={unlock,stopAll,setEnabled,setVolume,playApplause,playCheer,playCorrect,playDuelCorrect,playTreasureCorrect,playWrong,playEncouragement,playVictory,playCountdown,playEntrance,playRandom,get enabled(){return enabled},get volume(){return volume},get unlocked(){return unlocked},files:applauseFiles.slice()};
+  window.SoundFX={unlock,stopAll,setEnabled,setVolume,playApplause,playCheer,playCorrect,playDuelCorrect,playTreasureCorrect,playWrong,playEncouragement,playVictory,playTimerStart,playCountdown,playEntrance,playRandom,get enabled(){return enabled},get volume(){return volume},get unlocked(){return unlocked},files:[...applauseFiles,countdownFile]};
 })();
