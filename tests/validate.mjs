@@ -19,6 +19,7 @@ assert(app.includes("state.mode==='boss'&&state.bossHp===0&&state.players.every(
 assert(app.includes("subtle.digest('SHA-256'"),'教師密碼未使用 SHA-256 雜湊保存');assert(app.includes("upper:/[A-Z]/")&&app.includes("lower:/[a-z]/")&&app.includes("number:/\\d/")&&app.includes("symbol:/[^A-Za-z0-9\\s]/"),'密碼未完整檢查大小寫、數字與符號');assert(app.includes("configureAuth(localStorage.getItem(PASSWORD_KEY)?'unlock':'setup')"),'網站載入時未啟動密碼鎖');
 assert(app.includes('state.treasureCount')&&app.includes('Array.from({length:state.treasureCount}'),'寶箱王未建立1至20號參與者');assert(app.includes('state.lastScores')&&app.includes('showScoreQuery'),'寶箱王未保存或提供累積分數查詢');assert(app.includes('finishEarly')&&app.includes('showResults(true)'),'寶箱王缺少提前結束結算');
 assert(app.includes("$('#treasurePlayerPicker').onchange")&&app.includes('state.groupIndex=index'),'寶箱王缺少每回合1至20號手動挑選');assert(app.includes('roundJudged')&&app.includes("state.roundJudged[p.name]=p.judged"),'寶箱王未記錄同一回合各號碼判分');assert(app.includes("treasure?'下一回合（換題）"),'寶箱王換號碼與換題操作未分開');
+assert(app.includes("state.mode!=='treasure'&&state.round>=state.totalRounds"),'寶箱王不應因預設回合數自動結算');assert(app.includes("$('#skipBtn').hidden=treasure"),'寶箱王仍顯示跳題按鈕');assert(app.includes('按結束才結算'),'寶箱王未提示按結束結算');
 assert(app.includes("state.mode==='boss'?'沒關係，再努力，你一定可以！'"),'魔王模式答錯未顯示再努力鼓勵');
 assert(sounds.includes('function playBossVictory(){stopAll();playFile(true,2,true)}'),'魔王勝利未使用第三個原始音檔');assert(sounds.includes("speak('沒關係，再接再厲，繼續努力，你一定可以！'"),'答錯再努力語音內容遺失');
 console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 4 個 MP3 皆通過檢查`);

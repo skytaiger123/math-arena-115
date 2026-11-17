@@ -46,7 +46,7 @@
           <label>數學單元<select id="unitSelect"><option value="all">八單元混合</option><option value="1">1. 最大公因數與最小公倍數</option><option value="2">2. 分數除法</option><option value="3">3. 小數除法</option><option value="4">4. 比與比值</option><option value="5">5. 兩量關係</option><option value="6">6. 圓周長與扇形周長</option><option value="7">7. 放大、縮小與比例尺</option><option value="8">8. 怎樣解題</option></select></label>
           <fieldset><legend>題目難度</legend><div class="segmented"><button data-difficulty="easy">簡單</button><button class="active" data-difficulty="normal">普通</button><button data-difficulty="hard">困難</button></div></fieldset>
           <label>每題作答時間<select id="timeSelect"><option>30</option><option>45</option><option selected>60</option><option>90</option><option>120</option></select></label>
-          <label>總回合數<select id="roundsSelect"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></label>
+          <label id="roundCountWrap">總回合數<select id="roundsSelect"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></label>
         </div>
         <div class="player-settings">
           <label id="treasureCountWrap">寶箱王參與人數（以1號～20號為代號）<select id="treasureCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></label>
@@ -105,6 +105,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="data/questions.js?v=15"></script>
   <script src="sound-manager.js?v=15"></script>
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>
