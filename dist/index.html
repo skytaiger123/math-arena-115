@@ -46,14 +46,15 @@
           <label>數學單元<select id="unitSelect"><option value="all">八單元混合</option><option value="1">1. 最大公因數與最小公倍數</option><option value="2">2. 分數除法</option><option value="3">3. 小數除法</option><option value="4">4. 比與比值</option><option value="5">5. 兩量關係</option><option value="6">6. 圓周長與扇形周長</option><option value="7">7. 放大、縮小與比例尺</option><option value="8">8. 怎樣解題</option></select></label>
           <fieldset><legend>題目難度</legend><div class="segmented"><button data-difficulty="easy">簡單</button><button class="active" data-difficulty="normal">普通</button><button data-difficulty="hard">困難</button></div></fieldset>
           <label>每題作答時間<select id="timeSelect"><option>30</option><option>45</option><option selected>60</option><option>90</option><option>120</option></select></label>
-          <label>總回合數<select id="roundsSelect"><option>3</option><option selected>5</option><option>8</option><option>10</option><option>15</option><option>20</option></select></label>
+          <label>總回合數<select id="roundsSelect"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></label>
         </div>
         <div class="player-settings">
-          <label>參賽者／隊伍名稱（以逗號分隔）<input id="namesInput" value="第一組, 第二組, 第三組, 第四組, 第五組, 第六組" autocomplete="off"></label>
+          <label id="treasureCountWrap">寶箱王參與人數（以1號～20號為代號）<select id="treasureCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option></select></label>
+          <label id="customNamesWrap">參賽者／隊伍名稱（以逗號分隔）<input id="namesInput" value="第一組, 第二組, 第三組, 第四組, 第五組, 第六組" autocomplete="off"></label>
           <button id="startBtn" class="primary">開始新回合 <span>▶</span></button>
         </div>
       </section>
-      <section class="records-strip"><div><span>本機戰績</span><strong id="recordCount">0</strong><small>已完成回合</small></div><button id="exportBtn">⇩ 匯出 CSV</button><button id="clearBtn" class="danger-text">清除資料</button><button id="helpBtn">⌨ 快捷鍵</button></section>
+      <section class="records-strip"><div><span>本機戰績</span><strong id="recordCount">0</strong><small>已完成回合</small></div><button id="scoreQueryBtn">📊 查詢1～20號分數</button><button id="exportBtn">⇩ 匯出 CSV</button><button id="clearBtn" class="danger-text">清除資料</button><button id="helpBtn">⌨ 快捷鍵</button></section>
     </section>
 
     <section id="gameView" class="game-view" hidden>
@@ -75,7 +76,9 @@
         <button id="timerBtn" class="dock-main">▶ 開始計時 <kbd>Space</kbd></button>
         <button id="revealBtn">👁 公布答案 <kbd>A</kbd></button>
         <div id="scoreControls" class="score-controls"></div>
+        <button id="liveScoreBtn">📊 總分</button>
         <button id="skipBtn">↷ 跳題 <kbd>S</kbd></button>
+        <button id="endGameBtn" class="danger">結束並結算</button>
         <button id="nextBtn" class="next">下一組 → <kbd>N</kbd></button>
       </aside>
     </section>
@@ -83,6 +86,7 @@
 
   <dialog id="helpDialog"><button class="dialog-close" aria-label="關閉">×</button><h2>教師快捷鍵</h2><div class="shortcut-grid"><kbd>Space</kbd><span>開始／暫停計時</span><kbd>A</kbd><span>公布／隱藏答案</span><kbd>1 / 2 / 3</kbd><span>切換對應選手判分</span><kbd>＋ / －</kbd><span>選中選手加／扣分</span><kbd>S</kbd><span>跳過目前題目</span><kbd>N</kbd><span>完成回合並換下一組</span><kbd>F</kbd><span>切換全螢幕</span></div><p>快捷鍵在輸入名稱時不會觸發。</p></dialog>
   <dialog id="resultDialog" class="result-dialog"><p class="eyebrow">FINAL RESULTS</p><h2>本場競賽總結算</h2><p id="resultSummary"></p><div id="finalRanking" class="final-ranking"></div><div class="result-actions"><button id="exportResultBtn">⇩ 匯出 CSV</button><button id="backSetupBtn" class="primary">返回設定</button></div></dialog>
+  <dialog id="scoreDialog" class="score-dialog"><button id="scoreDialogClose" class="dialog-close" aria-label="關閉">×</button><p class="eyebrow">TREASURE SCORE BOARD</p><h2>數學寶箱王累積總分</h2><p>可隨時查詢1號～20號參與者目前累積分數。</p><div id="scoreQueryGrid" class="score-query-grid"></div></dialog>
   <dialog id="soundPanel" class="sound-panel"><button id="soundPanelClose" class="dialog-close" aria-label="關閉">×</button><p class="eyebrow">TEACHER SOUND BOARD</p><h2>教師音效控制台</h2><p id="soundStatus" class="sound-status">尚未啟動音效，請先按任一音效按鈕。</p><div class="sound-buttons"><button data-sound="applause">👏 鼓掌</button><button data-sound="cheer">🎉 熱烈歡呼</button><button data-sound="encourage">💪 鼓勵學生</button><button data-sound="victory">🏆 勝利音效</button><button data-sound="random">🎲 隨機音效</button><button data-sound="stop" class="stop-sound">■ 立即停止</button></div><label class="volume-control">教室音量（最高限制 70%）<input id="soundVolume" type="range" min="0" max="0.7" step="0.05" value="0.45"><output id="soundVolumeValue">45%</output></label><label class="auto-sound"><input id="autoSound" type="checkbox"> 啟用遊戲自動音效</label><p class="sound-note">自動音效預設關閉。教師首次點擊音效按鈕後，瀏覽器才會允許播放。</p></dialog>
   <dialog id="authDialog" class="auth-dialog" aria-labelledby="authTitle">
     <div class="auth-mark">🔐</div><p class="eyebrow">TEACHER ACCESS</p><h2 id="authTitle">設定教師開啟密碼</h2>
@@ -101,6 +105,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="data/questions.js?v=15"></script>
   <script src="sound-manager.js?v=15"></script>
-  <script src="app.js?v=16"></script>
+  <script src="app.js?v=17"></script>
 </body>
 </html>
