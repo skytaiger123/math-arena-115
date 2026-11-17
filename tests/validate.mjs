@@ -15,5 +15,7 @@ assert(app.includes('SoundFX.playTimerStart()'),'開始計時未綁定提示音'
 assert(app.includes('state.timerDeadline=Date.now()+state.remaining*1000'),'計時器未使用絕對時間校正');
 assert(app.includes('if(state.sound&&window.SoundFX)SoundFX.playWrong()'),'答錯未直接播放溫和鼓勵聲');
 const sounds=fs.readFileSync(new URL('../dist/sound-manager.js',import.meta.url),'utf8');assert(sounds.includes('a.duration/10'),'倒數音檔未依精確時長校準為 10 秒');assert(sounds.includes('offset*rate'),'暫停續播位置未按播放倍率校正');
-assert(sounds.includes("speak('再接再厲，你一定可以！'"),'答錯鼓勵語音內容遺失');
+assert(app.includes("state.mode==='boss'&&state.bossHp===0&&state.players.every(x=>x.judged==='correct')"),'魔王團隊勝利未要求三人全部答對');assert(app.includes('SoundFX.playBossVictory()'),'魔王團隊勝利未綁定專用歡呼');
+assert(app.includes("state.mode==='boss'?'沒關係，再努力，你一定可以！'"),'魔王模式答錯未顯示再努力鼓勵');
+assert(sounds.includes('function playBossVictory(){stopAll();playFile(true,2,true)}'),'魔王勝利未使用第三個原始音檔');assert(sounds.includes("speak('沒關係，再接再厲，繼續努力，你一定可以！'"),'答錯再努力語音內容遺失');
 console.log(`✓ 題庫 ${q.length} 題、8 單元、3 難度、智慧音效規則與 4 個 MP3 皆通過檢查`);
